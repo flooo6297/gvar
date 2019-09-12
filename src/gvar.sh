@@ -138,7 +138,7 @@ then
   then
     touch "$config"
   else
-    contents=$(<"$config")
+    contents=$(less "$config")
     if [ ${#contents} -eq 0 ];
     then
       contents="{}"
@@ -164,7 +164,7 @@ else
       else
         if [ "$valueGot" = false ];
         then
-          echo "$contents" | jq ."$name"
+          echo "$contents" | jq -r ."$name"
         else
           contents=$(echo "$contents" | jq ". + {\"$name\": \"$value\"}")
         fi
@@ -180,8 +180,9 @@ else
   fi
 fi
 
-echo "$contents" > "$config"
+echo "$contents" | tee -i "$config" >/dev/null
 
 else
   throwError
 fi
+exit
