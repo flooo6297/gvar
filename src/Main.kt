@@ -69,7 +69,7 @@ fun main(args: Array<String>) {
                     }
                 }
                 "e" -> {
-                    if (!configGot) {
+                    if (!nameGot) {
                         awaitValue = false
                         check = true
                         nameGot = true
